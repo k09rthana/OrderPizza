@@ -1,0 +1,2 @@
+export const DECREASE_ADULT = 'DECREASE_ADULT'
+export const ADD_ADULT = 'ADD_ADULT'

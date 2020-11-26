@@ -1,0 +1,3 @@
+export const BUY_SMALL_PIZZA = 'BUY_SMALL_PIZZA'
+export const ADD_SMALL_PIZZA = 'ADD_SMALL_PIZZA'
+

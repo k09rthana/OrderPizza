@@ -1,0 +1,3 @@
+export const BUY_LARGE_PIZZA = 'BUY_LARGE_PIZZA'
+export const ADD_LARGE_PIZZA = 'ADD_LARGE_PIZZA'
+
