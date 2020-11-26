@@ -2,8 +2,6 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Input from "@material-ui/core/Input";
-import Table from "@material-ui/core/Table";
-import { TableHead, TableRow, TableCell } from "@material-ui/core";
 import LocalPizzaSharpIcon from "@material-ui/icons/LocalPizzaSharp";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import RemoveCircleSharpIcon from "@material-ui/icons/RemoveCircleSharp";
@@ -23,157 +21,198 @@ import { addChildren } from "./redux";
 
 const PizzaOrder = (props) => {
   return (
-    <Grid container >
-      <Grid style={{ margin: "10%" ,width:"80%"}}>
+    <Grid container style={{display:"flex" ,justifyContent:"center"}}>
+      <Grid style={{width:"70%"}}>
         <Typography align="left" style={{ color: "#000080" }}>
           Order <b>Pizza</b>
         </Typography>
-        <Grid  style={{ align: "center", border: "2px solid #D3D3D3" }}>
-          <Table >
-            <Grid item width="50%" align="right">
-              <TableRow>
-                <TableCell  style={{borderBottom:"none"}}>
+        <Grid style={{ align: "center", border: "2px solid #D3D3D3" }}>
+          <Grid align="right" width="50%">
+            <Grid >
+              <Grid style={{ display: "inline-flex", align:"center" }}>
+                <Grid style={{ borderBottom: "none" }}>
                   <LocalPizzaSharpIcon
                     style={{
-                      fontSize: 20,
+                      fontSize: 16,
                       color: "#000080",
                       transform: "rotate(40deg)",
                     }}
                   />{" "}
-                </TableCell>
-                <TableCell>SMALL</TableCell>
-                <TableCell>
-                  <RemoveCircleSharpIcon
-                    onClick={props.buySmallPizza}
-                    style={{ color: "gray" }}
-                  />
-                </TableCell>
-                <TableCell>
-                  { props.numOfSmallPizzas}</TableCell>
-                <TableCell>
-                  <Grid onClick={props.addChildren}>
-                    <div onClick={props.numOfSmallPizzas==1? props.buySmallPizza: null}
->
-                  <AddCircleIcon
-                    onClick={props.numOfSmallPizzas==1? props.addMediumPizza: props.addSmallPizza}
-                    style={{ color: "#f10c45" }}
-                  />
-                  </div>
-                  </Grid>
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>
-                  <LocalPizzaSharpIcon
-                    style={{
-                      fontSize: 25,
-                      color: "#000080",
-                      transform: "rotate(40deg)",
-                    }}
-                  />{" "}
-                </TableCell>
-                <TableCell>MEDIUM</TableCell>
-                <TableCell>
-                  <RemoveCircleSharpIcon
-                    onClick={props.numOfMediumPizzas>0? props.buyMediumPizza : null}
-                    style={{ color: "#000080" }}
-                  />
-                </TableCell>
-                <TableCell>{props.numOfMediumPizzas}</TableCell>
-                <TableCell>
-                  <Grid onClick={props.addAdult}>
-                    <div onClick={props.numOfMediumPizzas==1? props.buyMediumPizza: null}
- >
-                  <AddCircleIcon
-                    onClick={props.numOfMediumPizzas==1? props.addLargePizza: props.addMediumPizza}
-                   
-                    style={{ color: "#f10c45" }}
-                  />
-                  </div>
                 </Grid>
-
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>
+                <Grid style={{display:"inline-flex"}} >SMALL<div style={{color:"white"}}>MM</div></Grid>
+                <Grid item style={{display:"flex", justifyContent:"space-around"}}>
+                  <RemoveCircleSharpIcon
+                    onClick={
+                      props.numOfSmallPizzas > 0 ? props.buySmallPizza : null
+                    }
+                    style={{  color:props.numOfSmallPizzas===0? "gray":"#000080", cursor: "pointer" }}
+                  />
+                </Grid>
+                <Grid> {props.numOfSmallPizzas} </Grid>
+                <Grid>
+                  <Grid onClick={props.addChildren}>
+                    <Grid
+                      onClick={
+                        props.numOfSmallPizzas === 1 &&
+                        props.numOfSmallPizzas * 150 +
+                          props.numOfMediumPizzas * 200 +
+                          props.numOfLargePizzas * 300 <
+                          1000
+                          ? props.buySmallPizza
+                          : null
+                      }
+                    >
+                      <AddCircleIcon
+                        onClick={
+                          props.numOfSmallPizzas == 1
+                            ? props.addMediumPizza
+                            : props.addSmallPizza
+                        }
+                        style={{ color: "#f10c45", cursor: "pointer" }}
+                      />
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Grid>
+<br></br>
+              <Grid style={{ display: "inline-flex" }}>
+                
+                <Grid>
                   <LocalPizzaSharpIcon
                     style={{
-                      fontSize: 35,
+                      fontSize: 19,
                       color: "#000080",
                       transform: "rotate(40deg)",
                     }}
                   />{" "}
-                </TableCell>
-                <TableCell>LARGE</TableCell>
-                <TableCell>
+                </Grid>
+                <Grid style={{display:"inline-flex"}} >MEDIUM<div style={{color:"white"}}>M</div></Grid>
+                <Grid>
                   <RemoveCircleSharpIcon
-                    onClick={props.numOfLargePizzas >0? props.buyLargePizza : null}
-                    style={{ color: "#000080" }}
+                    onClick={
+                      props.numOfMediumPizzas > 0 &&
+                      props.numOfSmallPizzas * 150 +
+                        props.numOfMediumPizzas * 200 +
+                        props.numOfLargePizzas * 300 <
+                        1000
+                        ? props.buyMediumPizza
+                        : null
+                    }
+                    style={{ color:props.numOfMediumPizzas ===0? "gray":"#000080", cursor: "pointer" }}
                   />
-                </TableCell>
-                <TableCell>{props.numOfLargePizzas}</TableCell>
-                <TableCell>
+                </Grid>
+                <Grid>{props.numOfMediumPizzas}</Grid>
+                <Grid>
                   <Grid onClick={props.addAdult}>
-                  <Grid onClick={props.addAdult }>
+                    <Grid
+                      onClick={
+                        props.numOfMediumPizzas === 1 &&
+                        props.numOfSmallPizzas * 150 +
+                          props.numOfMediumPizzas * 200 +
+                          props.numOfLargePizzas * 300 <
+                          1000
+                          ? props.buyMediumPizza
+                          : null
+                      }
+                    >
+                      <AddCircleIcon
+                        onClick={
+                          props.numOfSmallPizzas * 150 +
+                          props.numOfMediumPizzas * 200 +
+                          props.numOfLargePizzas * 300 <
+                          1000?
+                          (props.numOfMediumPizzas == 1
+                            ? props.addLargePizza
+                            : props.addMediumPizza):null
+                        }
+                        style={{ color: "#f10c45", cursor: "pointer" }}
+                      />
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Grid>
+              <br></br>
+              <Grid style={{ display: "inline-flex" }}>
+                <Grid>
+                  <LocalPizzaSharpIcon
+                    style={{
+                      fontSize: 21.5,
+                      color: "#000080",
+                      transform: "rotate(40deg)",
+                    }}
+                  />{" "}
+                </Grid>
+                <Grid style={{display:"inline-flex"}}>LARGE<div style={{color:"white"}}>MM</div></Grid>
+                <Grid>
+                  <RemoveCircleSharpIcon
+                    onClick={
+                      props.numOfLargePizzas > 0 &&
+                      props.numOfSmallPizzas * 150 +
+                        props.numOfMediumPizzas * 200 +
+                        props.numOfLargePizzas * 300 <
+                        1000
+                        ? props.buyLargePizza
+                        : null
+                    }
+                    style={{ color:props.numOfLargePizzas ===0? "gray":"#000080", cursor: "pointer" }}
+                  />
+                </Grid>
+                <Grid>{props.numOfLargePizzas}</Grid>
+                <Grid>
                   <AddCircleIcon
                     onClick={props.addLargePizza}
-                    
-                    style={{ color: "#f10c45" }}
+                    style={{ color: "#f10c45", cursor: "pointer" }}
                   />
-                  </Grid>
-                  </Grid>
-                </TableCell>
-              </TableRow>
+                </Grid>
+              </Grid>
             </Grid>
-          </Table>
+          </Grid>
 
           <hr></hr>
-          <Grid item
+          <Grid
+            item
             style={{
               display: "flex",
               justifyContent: "space-between",
               width: "100%",
             }}
           >
-            <Grid  style={{ display: "inline-flex" }}>
-              <Table>
-                <TableRow>
-                  <TableCell>
+            <Grid style={{ display: "inline-flex" }}>
+              <Grid style={{ display: "inline-flex" }}>
+                
+                  <Grid>
                     {" "}
                     <PersonIcon style={{ color: "#000080" }} />
-                  </TableCell>
-                  <TableCell>
+                  </Grid>
+                  <Grid>
                     {" "}
-                    <Typography>ADULTS</Typography>
-                  </TableCell>
-                </TableRow>
-              </Table>
+                    <Typography style={{align:"left"}}>ADULTS</Typography>
+                  </Grid>
+                
+              </Grid>
             </Grid>
             <Grid style={{ display: "inline-flex" }}>
-              <Table>
-                <TableRow>
-                  <TableCell>
+              <Grid style={{ display: "inline-flex" }}>
+                
+                  <Grid>
                     {" "}
                     <RemoveCircleSharpIcon
-                    
-                      onClick=
-                      {props.numOfAdults<=1? (null): (props.decreaseAdult)}
-                      style={{ color: "#000080" }}
+                      onClick={
+                        props.numOfAdults <= 1 ? null : props.decreaseAdult
+                      }
+                      style={{ color:props.numOfAdults ===0? "gray":"#000080", cursor: "pointer" }}
                     />
-                  </TableCell>
-                  <TableCell>
-                    {" "}
-                    {props.numOfAdults}
-                  </TableCell>
-                  <TableCell>
+                  </Grid>
+                  <Grid> {props.numOfAdults}</Grid>
+                  <Grid>
                     {" "}
                     <AddCircleIcon
                       onClick={props.addAdult}
-                      style={{ color: "#f10c45" }}
+                      style={{ color: "#f10c45", cursor: "pointer" }}
                     />
-                  </TableCell>
-                </TableRow>
-              </Table>
+                  </Grid>
+                
+              </Grid>
             </Grid>
           </Grid>
           <hr></hr>
@@ -185,63 +224,89 @@ const PizzaOrder = (props) => {
             }}
           >
             <Grid style={{ display: "inline-flex" }}>
-              <Table>
-                <TableRow>
-                  <TableCell>
+              <Grid style={{ display: "inline-flex" }}>
+                
+                  <Grid>
                     {" "}
                     <PersonIcon style={{ color: "#000080" }} />
-                  </TableCell>
-                  <TableCell>
+                  </Grid>
+                  <Grid>
                     {" "}
                     <Typography>CHILDREN</Typography>
-                  </TableCell>
-                </TableRow>
-              </Table>
+                  </Grid>
+                
+              </Grid>
             </Grid>
             <Grid style={{ display: "inline-flex" }}>
-              <Table>
-                <TableRow>
-                  <TableCell>
+              <Grid style={{ display: "inline-flex" }}>
+                
+                  <Grid>
                     {" "}
                     <RemoveCircleSharpIcon
-                      onClick={props.decreaseChildren}
-                      style={{ color: "#000080" }}
+                      onClick={
+                        props.numOfChildren > 0 ? props.decreaseChildren : null
+                      }
+                      style={{ color:props.numOfChildren ===0? "gray":"#000080", cursor: "pointer" }}
                     />
-                  </TableCell>
-                  <TableCell>
+                  </Grid>
+                  <Grid>
                     {" "}
                     {props.numOfChildren}
-                    {/* {props.numOfChildren ===3 ? props.addMediumPizza: null} */}
-                     
-                  </TableCell>
-                  <TableCell onClick={props.addChildren}>
+                  </Grid>
+                  <Grid onClick={props.addChildren}>
                     {" "}
-                    <div onClick={props.numOfChildren === 2? (props.addSmallPizza ):(null)} >
-                    <AddCircleIcon
-                      // onClick={props.addChildren}
-                      onClick={props.numOfChildren === 2? (props.addMediumPizza ):(null)} 
-                      // onChange={props.numOfChildren === 3? (props.addSmallPizza ):(null)} 
-                      
-                      style={{ color: "#f10c45" }}
-                    />
-                    </div>
-                  </TableCell>
-                </TableRow>
-              </Table>
+                    <Grid
+                      //onClick={
+                      //   props.numOfChildren === 2
+                      //     ? props.addMediumPizza
+                      //     : null
+                      // }
+                    >
+                      <AddCircleIcon
+                       
+                        // onClick={
+                        //   props.numOfChildren === 2 ? props.addSmallPizza : null
+                        // }
+
+                        style={{ color: "#f10c45", cursor: "pointer" }}
+                      />
+                    </Grid>
+                  </Grid>
+                
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
         <Grid
-          style={{ display: "flex",justifyContent:"space-between", color: "#000080", padding:"5%" }}
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            color: "#000080",
+            padding:"2%"
+          }}
         >
-          <Grid style={{ align: "left"}}>
+          
+          <Grid style={{ align: "left" }}>
             Order <b>Total</b>{" "}
-          </Grid>{props.numOfSmallPizzas*150 + props.numOfMediumPizzas*200 + props.numOfLargePizzas*300 >1000 || props.numOfSmallPizzas*150 + props.numOfMediumPizzas*200 + props.numOfLargePizzas*300 < 200 ? (null): (props.numOfSmallPizzas*150 + props.numOfMediumPizzas*200 + props.numOfLargePizzas*300)}</Grid>
+          </Grid>
+          {props.numOfSmallPizzas * 150 +
+            props.numOfMediumPizzas * 200 +
+            props.numOfLargePizzas * 300 >
+            1000 ||
+          props.numOfSmallPizzas * 150 +
+            props.numOfMediumPizzas * 200 +
+            props.numOfLargePizzas * 300 <
+            200
+            ? null
+            : props.numOfSmallPizzas * 150 +
+              props.numOfMediumPizzas * 200 +
+              props.numOfLargePizzas * 300}
+        </Grid>
         {/* <Grid style={{align:"right", width:"88%", }}>
       <Typography>450</Typography>
       </Grid> */}
       </Grid>
-     { console.log(">>>>>>>>>>",props.numOfSmallPizzas)}
+      {console.log(">>>>>>>>>>", props.numOfSmallPizzas)}
     </Grid>
   );
 };
