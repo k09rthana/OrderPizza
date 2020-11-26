@@ -39,7 +39,7 @@ const PizzaOrder = (props) => {
                     }}
                   />{" "}
                 </Grid>
-                <Grid style={{display:"inline-flex"}} >SMALL<div style={{color:"white"}}>MM</div></Grid>
+                <Grid style={{display:"inline-flex"}} >SMALL<div style={{color:"white", opacity:"0"}}>MM</div></Grid>
                 <Grid item style={{display:"flex", justifyContent:"space-around"}}>
                   <RemoveCircleSharpIcon
                     onClick={
@@ -86,7 +86,7 @@ const PizzaOrder = (props) => {
                     }}
                   />{" "}
                 </Grid>
-                <Grid style={{display:"inline-flex"}} >MEDIUM<div style={{color:"white"}}>M</div></Grid>
+                <Grid style={{display:"inline-flex"}} >MEDIUM<div style={{color:"white", opacity:"0"}}>M</div></Grid>
                 <Grid>
                   <RemoveCircleSharpIcon
                     onClick={
@@ -142,7 +142,7 @@ const PizzaOrder = (props) => {
                     }}
                   />{" "}
                 </Grid>
-                <Grid style={{display:"inline-flex"}}>LARGE<div style={{color:"white"}}>MM</div></Grid>
+                <Grid style={{display:"inline-flex"}}>LARGE<div style={{color:"white", opacity:"0"}}>MM</div></Grid>
                 <Grid>
                   <RemoveCircleSharpIcon
                     onClick={
@@ -282,7 +282,9 @@ const PizzaOrder = (props) => {
             display: "flex",
             justifyContent: "space-between",
             color: "#000080",
-            padding:"2%"
+            padding:"2%",
+            paddingLeft:"5%",
+            paddingRight:"5%"
           }}
         >
           
