@@ -21,15 +21,15 @@ import { addChildren } from "./redux";
 
 const PizzaOrder = (props) => {
   return (
-    <Grid container style={{display:"flex" ,justifyContent:"center"}}>
-      <Grid style={{width:"70%"}}>
+    <Grid container style={{ display: "flex", justifyContent: "center" }}>
+      <Grid style={{ width: "70%" }}>
         <Typography align="left" style={{ color: "#000080" }}>
           Order <b>Pizza</b>
         </Typography>
         <Grid style={{ align: "center", border: "2px solid #D3D3D3" }}>
-          <Grid align="right" width="50%">
-            <Grid >
-              <Grid style={{ display: "inline-flex", align:"center" }}>
+          <Grid align="right">
+            <Grid>
+              <Grid style={{ display: "inline-flex", align: "center" }}>
                 <Grid style={{ borderBottom: "none" }}>
                   <LocalPizzaSharpIcon
                     style={{
@@ -39,14 +39,32 @@ const PizzaOrder = (props) => {
                     }}
                   />{" "}
                 </Grid>
-                <Grid style={{display:"inline-flex"}} >SMALL<div style={{color:"white", opacity:"0"}}>MM</div></Grid>
-                <Grid item style={{display:"flex", justifyContent:"space-around"}}>
+                <Grid style={{ display: "inline-flex" }}>
+                  SMALL<div style={{ color: "white", opacity: "0" }}>MM</div>
+                </Grid>
+                <Grid
+                  item
+                  style={{ display: "flex", justifyContent: "space-around" }}
+                >
+                  <div  onClick={
+                      props.numOfSmallPizzas > 0 && props.numOfSmallPizzas * 150 +
+                      props.numOfMediumPizzas * 200 +
+                      props.numOfLargePizzas * 300 >
+                      200? props.decreaseChildren : null
+                    }>
                   <RemoveCircleSharpIcon
                     onClick={
-                      props.numOfSmallPizzas > 0 ? props.buySmallPizza : null
+                      props.numOfSmallPizzas > 0 && props.numOfSmallPizzas * 150 +
+                      props.numOfMediumPizzas * 200 +
+                      props.numOfLargePizzas * 300 >
+                      200 ?    props.buySmallPizza : null
                     }
-                    style={{  color:props.numOfSmallPizzas===0? "gray":"#000080", cursor: "pointer" }}
+                    style={{
+                      color: props.numOfSmallPizzas === 0 ? "gray" : "#000080",
+                      cursor: "pointer",
+                    }}
                   />
+                  </div>
                 </Grid>
                 <Grid> {props.numOfSmallPizzas} </Grid>
                 <Grid>
@@ -68,15 +86,23 @@ const PizzaOrder = (props) => {
                             ? props.addMediumPizza
                             : props.addSmallPizza
                         }
-                        style={{ color: "#f10c45", cursor: "pointer" }}
+                        style={{
+                          color:
+                            props.numOfSmallPizzas * 150 +
+                              props.numOfMediumPizzas * 200 +
+                              props.numOfLargePizzas * 300 <
+                            1000
+                              ? "#f10c45"
+                              : "gray",
+                          cursor: "pointer",
+                        }}
                       />
                     </Grid>
                   </Grid>
                 </Grid>
               </Grid>
-<br></br>
+              <br></br>
               <Grid style={{ display: "inline-flex" }}>
-                
                 <Grid>
                   <LocalPizzaSharpIcon
                     style={{
@@ -86,20 +112,37 @@ const PizzaOrder = (props) => {
                     }}
                   />{" "}
                 </Grid>
-                <Grid style={{display:"inline-flex"}} >MEDIUM<div style={{color:"white", opacity:"0"}}>M</div></Grid>
+                <Grid style={{ display: "inline-flex" }}>
+                  MEDIUM<div style={{ color: "white", opacity: "0" }}>M</div>
+                </Grid>
                 <Grid>
+                  <div   onClick={
+                      props.numOfMediumPizzas > 0 &&
+                      props.numOfSmallPizzas * 150 +
+                        props.numOfMediumPizzas * 200 +
+                        props.numOfLargePizzas * 300 >
+                        200
+                        ? props.decreaseAdult
+                        : null
+                    }>
                   <RemoveCircleSharpIcon
                     onClick={
                       props.numOfMediumPizzas > 0 &&
                       props.numOfSmallPizzas * 150 +
                         props.numOfMediumPizzas * 200 +
-                        props.numOfLargePizzas * 300 <
-                        1000
+                        props.numOfLargePizzas * 300 >
+                        200
+                        &&
+                        props.numOfAdults>1
                         ? props.buyMediumPizza
                         : null
                     }
-                    style={{ color:props.numOfMediumPizzas ===0? "gray":"#000080", cursor: "pointer" }}
+                    style={{
+                      color: props.numOfMediumPizzas === 0 ? "gray" : "#000080",
+                      cursor: "pointer",
+                    }}
                   />
+                  </div>
                 </Grid>
                 <Grid>{props.numOfMediumPizzas}</Grid>
                 <Grid>
@@ -118,14 +161,24 @@ const PizzaOrder = (props) => {
                       <AddCircleIcon
                         onClick={
                           props.numOfSmallPizzas * 150 +
-                          props.numOfMediumPizzas * 200 +
-                          props.numOfLargePizzas * 300 <
-                          1000?
-                          (props.numOfMediumPizzas == 1
-                            ? props.addLargePizza
-                            : props.addMediumPizza):null
+                            props.numOfMediumPizzas * 200 +
+                            props.numOfLargePizzas * 300 <
+                          1000
+                            ? props.numOfMediumPizzas == 1
+                              ? props.addLargePizza
+                              : props.addMediumPizza
+                            : null
                         }
-                        style={{ color: "#f10c45", cursor: "pointer" }}
+                        style={{
+                          color:
+                            props.numOfSmallPizzas * 150 +
+                              props.numOfMediumPizzas * 200 +
+                              props.numOfLargePizzas * 300 <
+                            1000
+                              ? "#f10c45"
+                              : "gray",
+                          cursor: "pointer",
+                        }}
                       />
                     </Grid>
                   </Grid>
@@ -142,27 +195,63 @@ const PizzaOrder = (props) => {
                     }}
                   />{" "}
                 </Grid>
-                <Grid style={{display:"inline-flex"}}>LARGE<div style={{color:"white", opacity:"0"}}>MM</div></Grid>
+                <Grid style={{ display: "inline-flex" }}>
+                  LARGE<div style={{ color: "white", opacity: "0" }}>MM</div>
+                </Grid>
                 <Grid>
                   <RemoveCircleSharpIcon
                     onClick={
-                      props.numOfLargePizzas > 0 &&
-                      props.numOfSmallPizzas * 150 +
-                        props.numOfMediumPizzas * 200 +
-                        props.numOfLargePizzas * 300 <
-                        1000
-                        ? props.buyLargePizza
-                        : null
+                      props.numOfLargePizzas && props.numOfSmallPizzas * 150 +
+                      props.numOfMediumPizzas * 200 +
+                      props.numOfLargePizzas * 300 >
+                    200 > 0 ? props.buyLargePizza : null
                     }
-                    style={{ color:props.numOfLargePizzas ===0? "gray":"#000080", cursor: "pointer" }}
+                    style={{
+                      color: props.numOfLargePizzas === 0 ? "gray" : "#000080",
+                      cursor: "pointer",
+                    }}
                   />
                 </Grid>
                 <Grid>{props.numOfLargePizzas}</Grid>
                 <Grid>
+                  <div onClick={
+                      props.numOfSmallPizzas * 150 +
+                        props.numOfMediumPizzas * 200 +
+                        props.numOfLargePizzas * 300 <
+                      1000
+                        ? props.addAdult
+                        : null
+                    }>
+                  <div  onClick={
+                      props.numOfSmallPizzas * 150 +
+                        props.numOfMediumPizzas * 200 +
+                        props.numOfLargePizzas * 300 <
+                      1000
+                        ? props.addAdult
+                        : null
+                    }>
                   <AddCircleIcon
-                    onClick={props.addLargePizza}
-                    style={{ color: "#f10c45", cursor: "pointer" }}
+                    onClick={
+                      props.numOfSmallPizzas * 150 +
+                        props.numOfMediumPizzas * 200 +
+                        props.numOfLargePizzas * 300 <
+                      1000
+                        ? props.addLargePizza
+                        : null
+                    }
+                    style={{
+                      color:
+                        props.numOfSmallPizzas * 150 +
+                          props.numOfMediumPizzas * 200 +
+                          props.numOfLargePizzas * 300 <
+                        1000
+                          ? "#f10c45"
+                          : "gray",
+                      cursor: "pointer",
+                    }}
                   />
+                  </div>
+                  </div>
                 </Grid>
               </Grid>
             </Grid>
@@ -179,39 +268,56 @@ const PizzaOrder = (props) => {
           >
             <Grid style={{ display: "inline-flex" }}>
               <Grid style={{ display: "inline-flex" }}>
-                
-                  <Grid>
-                    {" "}
-                    <PersonIcon style={{ color: "#000080" }} />
-                  </Grid>
-                  <Grid>
-                    {" "}
-                    <Typography style={{align:"left"}}>ADULTS</Typography>
-                  </Grid>
-                
+                <Grid>
+                  {" "}
+                  <PersonIcon style={{ color: "#000080" }} />
+                </Grid>
+                <Grid>
+                  {" "}
+                  <Typography style={{ align: "left" }}>ADULTS</Typography>
+                </Grid>
               </Grid>
             </Grid>
             <Grid style={{ display: "inline-flex" }}>
               <Grid style={{ display: "inline-flex" }}>
-                
-                  <Grid>
-                    {" "}
-                    <RemoveCircleSharpIcon
-                      onClick={
-                        props.numOfAdults <= 1 ? null : props.decreaseAdult
-                      }
-                      style={{ color:props.numOfAdults ===0? "gray":"#000080", cursor: "pointer" }}
-                    />
-                  </Grid>
-                  <Grid> {props.numOfAdults}</Grid>
-                  <Grid>
-                    {" "}
-                    <AddCircleIcon
-                      onClick={props.addAdult}
-                      style={{ color: "#f10c45", cursor: "pointer" }}
-                    />
-                  </Grid>
-                
+                <Grid>
+                  {" "}
+                  <RemoveCircleSharpIcon
+                    onClick={
+                      props.numOfAdults <= 1 ? null : props.decreaseAdult
+                    }
+                    style={{
+                      color: props.numOfAdults === 1 ? "gray" : "#000080",
+                      cursor: "pointer",
+                    }}
+                  />
+                </Grid>
+                <Grid> {props.numOfAdults}</Grid>
+                <Grid>
+                  {" "}
+                  <div  onClick={
+                      props.numOfSmallPizzas * 150 +
+                        props.numOfMediumPizzas * 200 +
+                        props.numOfLargePizzas * 300 <
+                      1000 
+                        ? props.addMediumPizza
+                        : null
+                    }>
+                  <AddCircleIcon
+                    onClick={props.addAdult}
+                    style={{
+                      color:
+                        props.numOfSmallPizzas * 150 +
+                          props.numOfMediumPizzas * 200 +
+                          props.numOfLargePizzas * 300 <
+                        1000
+                          ? "#f10c45"
+                          : "gray",
+                      cursor: "pointer",
+                    }}
+                  />
+                  </div>
+                </Grid>
               </Grid>
             </Grid>
           </Grid>
@@ -225,54 +331,65 @@ const PizzaOrder = (props) => {
           >
             <Grid style={{ display: "inline-flex" }}>
               <Grid style={{ display: "inline-flex" }}>
-                
-                  <Grid>
-                    {" "}
-                    <PersonIcon style={{ color: "#000080" }} />
-                  </Grid>
-                  <Grid>
-                    {" "}
-                    <Typography>CHILDREN</Typography>
-                  </Grid>
-                
+                <Grid>
+                  {" "}
+                  <PersonIcon style={{ color: "#000080" }} />
+                </Grid>
+                <Grid>
+                  {" "}
+                  <Typography>CHILDREN</Typography>
+                </Grid>
               </Grid>
             </Grid>
             <Grid style={{ display: "inline-flex" }}>
               <Grid style={{ display: "inline-flex" }}>
-                
-                  <Grid>
-                    {" "}
-                    <RemoveCircleSharpIcon
+                <Grid>
+                  {" "}
+                  <RemoveCircleSharpIcon
+                    onClick={
+                      props.numOfChildren > 0 ? props.decreaseChildren : null
+                    }
+                    style={{
+                      color: props.numOfChildren === 0 ? "gray" : "#000080",
+                      cursor: "pointer",
+                    }}
+                  />
+                </Grid>
+                <Grid> {props.numOfChildren}</Grid>
+                <Grid onClick={props.addChildren}>
+                  {" "}
+                  <Grid
+                  //onClick={
+                  //   props.numOfChildren === 2
+                  //     ? props.addMediumPizza
+                  //     : null
+                  // }
+                  >
+                    <div
                       onClick={
-                        props.numOfChildren > 0 ? props.decreaseChildren : null
+                        props.numOfChildren === 2 ? props.buySmallPizza : null
                       }
-                      style={{ color:props.numOfChildren ===0? "gray":"#000080", cursor: "pointer" }}
-                    />
-                  </Grid>
-                  <Grid>
-                    {" "}
-                    {props.numOfChildren}
-                  </Grid>
-                  <Grid onClick={props.addChildren}>
-                    {" "}
-                    <Grid
-                      //onClick={
-                      //   props.numOfChildren === 2
-                      //     ? props.addMediumPizza
-                      //     : null
-                      // }
                     >
-                      <AddCircleIcon
-                       
-                        // onClick={
-                        //   props.numOfChildren === 2 ? props.addSmallPizza : null
-                        // }
-
-                        style={{ color: "#f10c45", cursor: "pointer" }}
-                      />
-                    </Grid>
+                    <AddCircleIcon
+                      onClick={
+                        props.numOfChildren === 2
+                          ? props.addMediumPizza
+                          : props.addSmallPizza
+                      }
+                      style={{
+                        color:
+                          props.numOfSmallPizzas * 150 +
+                            props.numOfMediumPizzas * 200 +
+                            props.numOfLargePizzas * 300 <
+                          1000
+                            ? "#f10c45"
+                            : "gray",
+                        cursor: "pointer",
+                      }}
+                    />
+                    </div>
                   </Grid>
-                
+                </Grid>
               </Grid>
             </Grid>
           </Grid>
@@ -281,14 +398,13 @@ const PizzaOrder = (props) => {
           style={{
             display: "flex",
             justifyContent: "space-between",
-            color: "#000080",
-            padding:"2%",
-            paddingLeft:"5%",
-            paddingRight:"5%"
+            // color: "#000080",
+            padding: "2%",
+            paddingLeft: "5%",
+            paddingRight: "5%",
           }}
         >
-          
-          <Grid style={{ align: "left" }}>
+          <Grid style={{ align: "left", color: "#000080" }}>
             Order <b>Total</b>{" "}
           </Grid>
           {props.numOfSmallPizzas * 150 +
